@@ -1,0 +1,49 @@
+/* LoginComponent.css */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .login-card {
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-image {
+    display: block;
+    margin: 0 auto 20px;
+    width: 100px;
+  }
+  
+  .input-icon {
+    margin-right: 8px;
+  }
+
+  .error-message {
+    margin-top: 5px;
+    margin-left: 15px;
+    font-size: 12px;
+  }
+  
+  .custom-bg-color {
+    background-color: #f2f3ee; /* Cambia esto al color que prefieras */
+    border-radius: 10px; /* Añadir un poco de borde redondeado */
+    padding: 20px; /* Añadir un poco de padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añadir una sombra para un efecto de profundidad */
+  }
+
+  .margin-bottom {
+    margin-bottom: 20px; /* Ajusta esto al tamaño de margen que prefieras */
+  }
+
+  .custom-toast {
+    max-width: 200px; /* Ancho máximo del Toast */
+    font-size: 14px; /* Tamaño de fuente del texto */
+    padding: 8px; /* Ajuste de relleno alrededor del texto */
+    position: fixed;
+  }
+  
+  
+  

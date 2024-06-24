@@ -1,0 +1,26 @@
+/* MenuComponent.css */
+.ion-padding {
+  padding: 16px;
+}
+
+ion-card {
+  --background: var(--ion-color-light);
+  --color: var(--ion-color-dark);
+  margin-top: 16px;
+}
+
+ion-card-header {
+  --background: var(--ion-color-tertiary);
+  --color: var(--ion-color-light);
+  padding: 8px 16px;
+  border-radius: 8px 8px 0 0;
+}
+
+ion-card-title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+ion-card-content {
+  padding: 16px;
+}

@@ -1,0 +1,158 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model T_usuarios {
+cn_cod_usuario Int @id
+ct_nombre String
+cn_numero_telefono Int
+ct_correo String
+ct_puesto String
+ct_clave String
+
+incidencias        T_Incidencias[]
+cn_id_departamento Int
+diagnosticosxincidencias T_DiagnosticosXIncidencias[]
+
+
+departamento  T_Departamento  @relation(fields: [cn_id_departamento], references: [cn_id_departamento])
+puestos                   T_puestos[]
+@@map("t_usuarios")
+
+}
+
+model T_puestos {
+  cn_cod_puesto  Int       @id
+  ct_nombre      String
+  fecha_inicio   DateTime
+  fecha_fin      DateTime?
+
+  // Relaciones
+  cn_cod_usuario Int       // Clave foránea para relacionar con el usuario
+  usuario        T_usuarios @relation(fields: [cn_cod_usuario], references: [cn_cod_usuario])
+
+  @@map("t_puestos")
+}
+
+
+model T_Departamento {
+  cn_id_departamento Int    @id @default(autoincrement())
+  ct_descripcion     String @db.VarChar(191)
+  usuarios T_usuarios[]
+
+  @@map("t_departamento")
+}
+
+model T_DiagnosticosXIncidencias {
+  cn_id              Int            @id @default(autoincrement())
+  cn_cod_diagnostico Int
+  ct_cod_incidencia  String         @db.VarChar(191)
+  cn_cod_usuario     Int
+
+  diagnostico        T_Diagnosticos  @relation(fields: [cn_cod_diagnostico], references: [cn_cod_diagnostico], onDelete: Restrict, onUpdate: Restrict)
+  incidencia         T_Incidencias   @relation(fields: [ct_cod_incidencia], references: [ct_cod_incidencia], onDelete: Restrict, onUpdate: Restrict)
+  usuarios            T_usuarios      @relation(fields: [cn_cod_usuario], references: [cn_cod_usuario], onDelete: Restrict, onUpdate: Restrict)
+
+  @@map("t_diagnosticosxincidencias")
+}
+
+
+model T_Incidencias {
+  ct_cod_incidencia         String               @id @db.VarChar(191)
+  cd_fechaHora              DateTime             @default(now()) @db.DateTime(3)
+  ct_titulo                 String               @db.VarChar(191)
+  ct_descripcion            String               @db.VarChar(191)
+  ct_lugar                  String               @db.VarChar(191)
+  ct_justificacionDeCierre  String?              @db.VarChar(191)
+  ct_estadoDeCierre         String?              @db.VarChar(191)
+  ct_nombreTecnico          String?              @db.VarChar(191)
+  cn_costos                 Int?
+  cn_duracion               Int?
+  ct_prioridad              String?              @db.VarChar(191)
+  ct_riesgo                 String?              @db.VarChar(191)
+  ct_afectacion             String?              @db.VarChar(191)
+  ct_categoria              String?              @db.VarChar(191)
+  cn_cod_usuario            Int
+  cn_cod_estado             Int
+  cn_cod_encargado          Int?                 // Agregado este campo
+ 
+  diagnosticosxincidencias  T_DiagnosticosXIncidencias[]
+  imagenesxincidencias      TImagenesXIncidencias[]
+  estadosxincidencias      T_EstadosXIncidencias[]
+
+  estado                    T_Estados            @relation(fields: [cn_cod_estado], references: [cn_cod_estado], onDelete: Restrict, onUpdate: Restrict)
+  usuario                   T_usuarios           @relation(fields: [cn_cod_usuario], references: [cn_cod_usuario], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("t_incidencias")
+}
+
+model T_EstadosXIncidencias {
+  id                 Int           @id @default(autoincrement())
+  cn_cod_incidencia  String
+  cn_cod_estado      Int
+  cd_fechaCambio     DateTime      @default(now())
+
+  incidencia         T_Incidencias @relation(fields: [cn_cod_incidencia], references: [ct_cod_incidencia], onDelete: Cascade, onUpdate: Cascade)
+  estado             T_Estados     @relation(fields: [cn_cod_estado], references: [cn_cod_estado], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("t_estadosxincidencias")
+}
+
+model T_Diagnosticos {
+  cn_cod_diagnostico Int                        @id @default(autoincrement())
+  ct_fechaHora       DateTime                   @default(now())
+  ct_descripcion     String                     @db.VarChar(191)
+  cn_tiempoSolucion  Int
+  ct_observacion     String                     @db.VarChar(191)
+  ct_cod_incidencia             String?          @db.VarChar(191)
+  ct_requiereCompra          String?              @db.VarChar(191)
+
+ 
+  diagnosticosxincidencias T_DiagnosticosXIncidencias[]
+  imagenesxdiagnostico T_ImagenesXDiagnostico[]
+
+  @@map("t_diagnosticos")
+}
+
+model T_ImagenesXDiagnostico {
+  cn_id              Int            @id @default(autoincrement())
+  cn_cod_diagnostico Int
+  ct_urlImagen       String         @db.VarChar(191)
+
+  diagnostico        T_Diagnosticos  @relation(fields: [cn_cod_diagnostico], references: [cn_cod_diagnostico], onDelete: Restrict, onUpdate: Restrict)
+
+  @@map("t_imagenesxdiagnostico")
+}
+
+model TImagenesXIncidencias {
+  cn_id              Int            @id @default(autoincrement())
+  ct_cod_incidencia  String         @db.VarChar(191)
+  ct_urlImagen       String         @db.VarChar(191)
+
+  incidencia         T_Incidencias   @relation(fields: [ct_cod_incidencia], references: [ct_cod_incidencia], onDelete: Restrict, onUpdate: Restrict)
+
+  @@map("t_imagenesxincidencias")
+}
+
+
+model T_Estados {
+  cn_cod_estado      Int            @id @default(autoincrement())
+  ct_descripcion     String         @db.VarChar(191)
+  ct_sistema         String         @default("SGI") @db.VarChar(191)
+  cn_activo          Int            @default(1)
+  incidencias        T_Incidencias[]
+  estadosxincidencias T_EstadosXIncidencias[] // Relación inversa
+
+  @@map("t_estados")
+}

@@ -1,0 +1,57 @@
+/* Estilos personalizados para los campos de entrada y selección */
+.custom-label {
+  color: var(--ion-color-primary);
+  font-weight: bold;
+  margin-bottom: 8px; /* Añadido margen inferior */
+}
+
+.custom-input,
+.custom-select {
+  --padding-start: 10px;
+  border-radius: 8px;
+  background-color: #f3f4f6;
+  color: var(--ion-color-dark);
+  padding: 10px;
+  margin: 10px 0; /* Mantener margen superior e inferior */
+  margin-top: 20px; /* Añadido margen superior */
+}
+
+.custom-select-option {
+  color: var(--ion-color-secondary);
+}
+
+.custom-button {
+  --background: var(--ion-color-success);
+  --background-activated: var(--ion-color-primary-shade);
+  --background-focused: var(--ion-color-primary-shade);
+  --background-hover: var(--ion-color-primary-tint);
+  border-radius: 8px;
+  color: white;
+}
+
+.ion-margin {
+  margin: 16px 0;
+}
+
+.incidence-card {
+  background: #A2ECD5;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+/* Estilos específicos para filtros */
+.filter-lugar .custom-input {
+  border: 1px solid #ff6347; /* Color rojo para el filtro de lugar */
+}
+
+.filter-fecha .custom-input {
+  border: 1px solid #4682b4; /* Color azul para el filtro de fecha */
+}
+
+.filter-consecutivo .custom-input {
+  border: 1px solid #32cd32; /* Color verde para el filtro de consecutivo */
+}
+
+

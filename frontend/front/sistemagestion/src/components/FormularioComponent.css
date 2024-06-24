@@ -1,0 +1,30 @@
+
+.custom-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.custom-input {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.custom-input::placeholder {
+  color: #999;
+}
+
+.submit-button {
+  --background: #3880ff;
+  --background-hover: #3171e0;
+  --background-activated: #3171e0;
+  --background-focused: #3171e0;
+  color: white;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px; /* Añadido para asegurar que no esté pegado al borde inferior */
+}
+
+
+
+

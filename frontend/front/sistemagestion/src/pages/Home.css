@@ -1,0 +1,40 @@
+/* Home.css */
+.custom-list {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-item {
+    margin-bottom: 20px;
+    --highlight-color-focused: #3880ff;
+    --highlight-color-valid: #10dc60;
+    --highlight-color-invalid: #f04141;
+  }
+  
+  .custom-label {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .custom-input {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .custom-input::placeholder {
+    color: #999;
+  }
+  
+  .submit-button {
+    --background: #3880ff;
+    --background-hover: #3171e0;
+    --background-activated: #3171e0;
+    --background-focused: #3171e0;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
